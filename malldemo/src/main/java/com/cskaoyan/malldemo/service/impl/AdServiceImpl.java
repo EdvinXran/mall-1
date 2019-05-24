@@ -15,9 +15,9 @@ public class AdServiceImpl implements AdService {
     @Autowired
     AdMapper adMapper;
     @Override
-    public List<Ad> findAllAd(int page, int limit) {
+    public List<Ad> findAllAd(int page, int limit,Ad ad) {
         PageHelper.startPage(page,limit);
-        List<Ad> allAd = adMapper.findAllAd();
+        List<Ad> allAd = adMapper.findAllAd(ad);
         return allAd;
     }
 
@@ -26,5 +26,11 @@ public class AdServiceImpl implements AdService {
         AdExample example = new AdExample();
         long count = adMapper.countByExample(example);
         return count;
+    }
+
+    @Override
+    public int deleteAd(Ad ad) {
+        int i = adMapper.deleteAd(ad);
+        return i;
     }
 }

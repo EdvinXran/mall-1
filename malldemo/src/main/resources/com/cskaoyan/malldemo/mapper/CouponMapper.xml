@@ -444,4 +444,28 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="findAllCoupon" resultMap="BaseResultMap">
+    select
+    id, `name`, `desc`, tag, total, discount, `min`,`limit` , `type`, `status`, goods_type, goods_value,
+   time_type, days,add_time, update_time, deleted
+   from cskaoyan_mall_coupon
+   <where>
+     <if test="name != '' and name != null">
+       name like "%"#{name}"%"
+     </if>
+     <if test="type != ''and type != null">
+      and type like "%"#{type}"%"
+     </if>
+     <if test="status != '' and status != null">
+      and status like "%"#{status}"%"
+     </if>
+     and  deleted = 0
+   </where>
+   order by #{addTime},#{desc}
+  </select>
+  <update id="deleteCoupon">
+    update from cskaoyan_mall_coupon
+    set deleted = 1
+    where id = #{id}
+  </update>
 </mapper>

@@ -77,6 +77,21 @@
     id, name, link, url, position, content, start_time, end_time, enabled, add_time, 
     update_time, deleted
   </sql>
+  <select id="findAllAd" resultMap="BaseResultMap">
+    SELECT
+ id, name, link, url, position, content, enabled, add_time,
+    update_time, deleted from cskaoyan_mall_ad
+    <where>
+      <if test="name != '' and name != null">
+        name like "%"#{name}"%"
+      </if>
+      <if test="content != '' and content != null">
+        and content like "%"#{content}"%"
+      </if>
+        and deleted = 0
+    </where>
+    order by #{addTime}
+  </select>
   <select id="selectByExample" parameterType="com.cskaoyan.malldemo.bean.AdExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -319,5 +334,10 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="deleteAd">
+    update cskaoyan_mall_ad
+    set deleted = 1
+    where id = #{id}
   </update>
 </mapper>

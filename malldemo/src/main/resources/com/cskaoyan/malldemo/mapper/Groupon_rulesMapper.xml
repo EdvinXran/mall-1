@@ -288,4 +288,22 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="findAllGroupon" resultMap="BaseResultMap">
+select
+    id, goods_id, goods_name, pic_url, discount, discount_member, add_time, update_time,
+    expire_time, deleted from cskaoyan_mall_groupon_rules
+    <where>
+    <if test="goodsId != '' and goodsId != null">
+      goods_id  like
+      concat('%',#{goodsId},'%')
+    </if>
+      and deleted = 0
+    </where>
+  </select>
+  <update id="deleteGroup" >
+    update  cskaoyan_mall_groupon_rules
+    set deleted = 1
+    where
+    id = #{id}
+  </update>
 </mapper>

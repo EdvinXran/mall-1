@@ -374,4 +374,24 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="findAllTopic" resultMap="BaseResultMap">
+select
+     id, title, subtitle, price, read_count, pic_url, sort_order, goods, add_time, update_time,deleted
+     from cskaoyan_mall_topic
+     <where>
+       <if test="title != '' and title != null">
+         title like "%" #{title}"%"
+       </if>
+       <if test="subtitle != '' and subtitle != null">
+         and  subtitle like "%"#{subtitle}"%"
+       </if>
+       <if test="deleted == 0">
+         and deleted = 0
+       </if>
+     </where>
+     order by #{addTime}
+  </select>
+  <update id="deleteTopic" >
+   update cskaoyan_mall_topic set deleted = 1 where id = #{id}
+  </update>
 </mapper>

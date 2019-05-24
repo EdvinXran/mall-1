@@ -28,4 +28,8 @@ public interface CouponMapper {
     int updateByPrimaryKeySelective(Coupon record);
 
     int updateByPrimaryKey(Coupon record);
+
+    List<Coupon> findAllCoupon(Coupon coupon);
+
+    int deleteCoupon(Coupon coupon);
 }

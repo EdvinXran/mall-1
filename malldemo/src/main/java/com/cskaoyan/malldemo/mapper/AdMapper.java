@@ -11,7 +11,7 @@ public interface AdMapper {
 
     int deleteByExample(AdExample example);
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey( Ad ad);
 
     int insert(Ad record);
 
@@ -29,5 +29,7 @@ public interface AdMapper {
 
     int updateByPrimaryKey(Ad record);
 
-    List<Ad> findAllAd();
+    List<Ad> findAllAd(Ad ad);
+
+    int deleteAd(Ad ad);
 }

@@ -1,47 +1,42 @@
 package com.cskaoyan.malldemo.controller;
 
-import com.cskaoyan.malldemo.bean.Ad;
-import com.cskaoyan.malldemo.service.AdService;
+import com.cskaoyan.malldemo.bean.Topic;
+import com.cskaoyan.malldemo.service.TopicService;
 import com.cskaoyan.malldemo.vo.Vo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.nio.file.AccessDeniedException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/ad")
-public class AdController {
+@RequestMapping("topic")
+public class TopicController {
     @Autowired
-    AdService adService;
-    // 显示数据
+    TopicService topicService;
     @RequestMapping("list")
-    public Vo list(int page,int limit,Ad ad){
-        List<Ad> allAd = adService.findAllAd(page, limit,ad);
-        int count = (int)adService.selectCount();
+    public Vo list(int page,int limit,Topic topic){
+        List<Topic> allTopic = topicService.findAllTopic(page, limit,topic);
+        long count = topicService.topicCount();
         HashMap<String, Object> map = new HashMap<>();
         map.put("total",count);
-        map.put("items",allAd);
+        map.put("items",allTopic);
         Vo vo = new Vo();
         vo.setData(map);
-        String msg = "成功";
-        vo.setErrmsg(msg);
         vo.setErrno(0);
+        vo.setErrmsg("成功");
         return vo;
     }
-
-    // 删除一条数据
+    // 删除单条数据
     @RequestMapping("delete")
-    public Map delete(@RequestBody Ad ad){
-        int i = adService.deleteAd(ad);
+    public Map delete(@RequestBody Topic topic){
         HashMap<String, Object> map = new HashMap<>();
-        if(i!=0){
+        int i = topicService.deleteTopic(topic);
+        if(i != 0){
             map.put("errmsg","成功");
             map.put("errno",0);
         }

@@ -8,24 +8,24 @@ import java.util.Map;
  * 2019/5/22 17:13
  */
 public class Vo {
-  String errno;
+  int errno;
   Map<String, Object> data = new HashMap<>();
   String errmsg;
 
   public Vo() {
   }
 
-  public Vo(String errno, Map<String, Object> data, String errmsg) {
+  public Vo(int errno, Map<String, Object> data, String errmsg) {
     this.errno = errno;
     this.data = data;
     this.errmsg = errmsg;
   }
 
-  public String getErrno() {
+  public int getErrno() {
     return errno;
   }
 
-  public void setErrno(String errno) {
+  public void setErrno(int errno) {
     this.errno = errno;
   }
 

@@ -28,4 +28,8 @@ public interface Groupon_rulesMapper {
     int updateByPrimaryKeySelective(Groupon_rules record);
 
     int updateByPrimaryKey(Groupon_rules record);
+
+    List<Groupon_rules> findAllGroupon(Groupon_rules grouponRules);
+
+    int deleteGroup(Groupon_rules grouponRules);
 }

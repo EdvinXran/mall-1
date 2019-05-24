@@ -1,47 +1,42 @@
 package com.cskaoyan.malldemo.controller;
 
-import com.cskaoyan.malldemo.bean.Ad;
-import com.cskaoyan.malldemo.service.AdService;
+import com.cskaoyan.malldemo.bean.Groupon_rules;
+import com.cskaoyan.malldemo.service.GrouponService;
 import com.cskaoyan.malldemo.vo.Vo;
+import org.omg.CORBA.portable.ValueOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.nio.file.AccessDeniedException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/ad")
-public class AdController {
+@RequestMapping("groupon")
+public class GrouponController {
     @Autowired
-    AdService adService;
-    // 显示数据
+    GrouponService grouponService;
     @RequestMapping("list")
-    public Vo list(int page,int limit,Ad ad){
-        List<Ad> allAd = adService.findAllAd(page, limit,ad);
-        int count = (int)adService.selectCount();
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("total",count);
-        map.put("items",allAd);
+    public Vo list(int page, int limit, Groupon_rules grouponRules){
+        List<Groupon_rules> allGroupon = grouponService.findAllGroupon(page, limit, grouponRules);
+        int count = (int)grouponService.grouponCount();
         Vo vo = new Vo();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("items",allGroupon);
+        map.put("total",count);
         vo.setData(map);
-        String msg = "成功";
-        vo.setErrmsg(msg);
         vo.setErrno(0);
+        vo.setErrmsg("成功");
         return vo;
     }
-
-    // 删除一条数据
+    //删除
     @RequestMapping("delete")
-    public Map delete(@RequestBody Ad ad){
-        int i = adService.deleteAd(ad);
+    public Map delete(@RequestBody Groupon_rules grouponRules){
+        int i = grouponService.deleteGroup(grouponRules);
         HashMap<String, Object> map = new HashMap<>();
-        if(i!=0){
+        if(i != 0){
             map.put("errmsg","成功");
             map.put("errno",0);
         }
